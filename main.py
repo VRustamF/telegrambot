@@ -2,19 +2,26 @@ import asyncio
 import logging
 
 from aiogram import Bot, Dispatcher
+from aiogram.client.default import DefaultBotProperties
+from aiogram.enums import ParseMode
 
 from config.config import Config, load_config
 from handlers import others, users
 
-async def main() -> None:
+logger = logging.getLogger(__name__)
+
+async def main():
     config: Config = load_config()
 
     logging.basicConfig(
-        level=logging.getLevelName(level=config.log.level),
-        format=config.log.format
+        level=config.log.level,
+        format=config.log.format,
     )
 
-    bot = Bot(token=config.bot.token)
+    logger.info("Starting bot")
+
+    bot = Bot(token=config.bot.token, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+
     dp = Dispatcher()
 
     dp.include_router(users.router)
