@@ -1,5 +1,5 @@
-from dataclasses import dataclass
 from environs import Env
+from dataclasses import dataclass
 
 @dataclass
 class TgBot:

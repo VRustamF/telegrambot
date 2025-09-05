@@ -1,11 +1,8 @@
 from aiogram import Router
 from aiogram.types import Message
 
-from lexicon.lexicon import LEXICON_RU
-
 router = Router()
 
-
 @router.message()
-async def bad_update(message: Message):
-    await message.answer(text=LEXICON_RU['other_answer'])
+async def send_echo(message: Message):
+    await message.send_copy(chat_id=message.from_user.id)
